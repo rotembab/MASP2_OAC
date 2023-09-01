@@ -7,12 +7,16 @@ public class Main {
 
 		// extract parameters
 		int n = Integer.valueOf(args[0]).intValue();
-		int d = Integer.valueOf(args[1]).intValue();
+		boolean gameSelected = Boolean.valueOf(args[1]);// true for PD and false for BoS
 		double p1 = Double.valueOf(args[2]).doubleValue();
-		double p2 = Double.valueOf(args[3]).doubleValue();
+		double wifePlayers = Double.parseDouble(null);
+		if(!gameSelected){ //if false then Bos
+			wifePlayers = Double.valueOf(args[3]).doubleValue();
+		}
+
 
 		// generate and print CSP
-		Generator gen = new Generator(n, d, p1, p2);		
+		Generator gen = new Generator(n, gameSelected, p1, wifePlayers);
 		MASP masp = gen.generateMASP();
 		masp.print();
 

@@ -4,19 +4,17 @@
  */
 public class ConsTable {
 
-	private boolean[][] table;
+	private TupleForGame[][] table;
+	private boolean gameType;
 	
 	// create a constraint table with corresponding domain size and p2
-	public ConsTable(int d, double p2) {
-		
-		table = new boolean[d][d];
-		
-		for (int i = 0; i < d; i++) {
-			for (int j = 0; j < d; j++) {
-				table[i][j] = true;
-				if (Math.random() < p2) {
-					table[i][j] = false;
-				}
+	public ConsTable(boolean gameType) {
+
+		table = new TupleForGame[2][2];
+		this.gameType=gameType;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				//TODO: GENERATE TABLE WITH VALUES- RANDOM??
 			}
 		}
 	}
