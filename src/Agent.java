@@ -6,26 +6,26 @@ import java.util.Random;
 public class Agent implements Runnable {
 
 	private int id;
-	private int domainSize, assignment, agents;
+	private int  assignment, agents;
 	private Mailer mailer;
 	private HashMap<Integer, ConsTable> constraints;
 	private HashMap<Integer, Integer> assignments = new HashMap<Integer, Integer>();
+	private boolean gameSelected;
 	
 	/*
 	 * constructor parameters -
 	 * agent's id
 	 * a reference to mailer
-	 * private information from masp object
+	 * private information from MASP object
 	 */
-	public Agent(int id, Mailer mailer, HashMap<Integer, ConsTable> constraints, int n, int d) {
+	public Agent(int id, Mailer mailer, HashMap<Integer, ConsTable> constraints, int n, boolean gameSelected) {
 		this.id = id;
 		this.mailer = mailer;
 		this.constraints = constraints;
-		this.domainSize = d;
 		this.agents = n;
 		
 		Random r = new Random();
-		assignment = r.nextInt(domainSize);
+		assignment = r.nextInt(2); //randomized assignment
 	}
 
 	@Override

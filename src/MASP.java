@@ -14,16 +14,16 @@ public class MASP {
 
 	// required fields - the constraints tables and the domain size
 	private HashMap<VarTuple, ConsTable> cons_tables;
-	private int domainSize;
+	private boolean typeOfGame;
 	int n;
 	
 	/*
 	 * constructor
 	 */
-	public MASP(HashMap<VarTuple, ConsTable> cons_tables, int domainSize, int agents) {
+	public MASP(HashMap<VarTuple, ConsTable> cons_tables, int agents,boolean typeOfGame) {
 		this.cons_tables = cons_tables;
-		this.domainSize = domainSize;
 		this.n = agents;
+		this.typeOfGame = typeOfGame;
 	}
 
 	public HashMap<Integer, ConsTable> tablesOf(int i) {
@@ -54,11 +54,11 @@ public class MASP {
 		return neighbors;
 	}
 	
-	// print a masp
+	// print a MASP
 	public void print() {
 		for (Entry<VarTuple, ConsTable> entry : cons_tables.entrySet()) {
 			System.out.println("table of " + entry.getKey().getI() + " and " + entry.getKey().getJ() + ":");
-			entry.getValue().print(domainSize);
+			entry.getValue().print();
 			System.out.println();
 		}
 	}

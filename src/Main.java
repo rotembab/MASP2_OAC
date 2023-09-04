@@ -9,9 +9,9 @@ public class Main {
 		int n = Integer.valueOf(args[0]).intValue();
 		boolean gameSelected = Boolean.valueOf(args[1]);// true for PD and false for BoS
 		double p1 = Double.valueOf(args[2]).doubleValue();
-		double wifePlayers = Double.parseDouble(null);
+		int wifePlayers = 0;
 		if(!gameSelected){ //if false then Bos
-			wifePlayers = Double.valueOf(args[3]).doubleValue();
+			wifePlayers = Integer.valueOf(args[3]).intValue();
 		}
 
 
@@ -30,8 +30,9 @@ public class Main {
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		for (int i = 0; i < n; i++) {
 			// use the csp to extract the private information of each agent
+			
 			HashMap<Integer, ConsTable> private_information = masp.tablesOf(i);
-			Thread t = new Thread(new Agent(i, mailer, private_information, n, d));
+			Thread t = new Thread(new Agent(i, mailer, private_information, n, gameSelected));
 			threads.add(t);
 		}
 
@@ -44,5 +45,6 @@ public class Main {
 		for (Thread t : threads) {
 			t.join();
 		}
+		
 	}
 }

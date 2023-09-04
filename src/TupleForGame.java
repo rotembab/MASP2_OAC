@@ -21,5 +21,9 @@ public class TupleForGame {
     public void setGainLeft(int gainLeft) {
         this.gainLeft = gainLeft;
     }
+    
+    public String toString() {
+    	return "("+this.gainLeft+","+this.gainRight+")";
+    }
 
 }
