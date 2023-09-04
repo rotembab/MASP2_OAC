@@ -26,7 +26,7 @@ public class MASP {
 		this.typeOfGame = typeOfGame;
 	}
 
-	public HashMap<Integer, ConsTable> tablesOf(int i) {
+	public HashMap<Integer, ConsTable> tablesOf(int i) {//??
 		
 		HashMap<Integer, ConsTable> tables = new HashMap<Integer, ConsTable>();
 		SortedSet<Integer> neighbors = neighborsOf(i);

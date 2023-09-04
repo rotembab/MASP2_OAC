@@ -6,7 +6,6 @@ public class Generator {
 	private int n, wifePlayers;
 	private boolean typeOfGame;
 	private double p1;
-	private final double wifeProbability=0.5;
 
 	/*
 	 * constructor parameters -
@@ -29,17 +28,17 @@ public class Generator {
 		HashMap<VarTuple, ConsTable> cons_tables = new HashMap<VarTuple, ConsTable>();
 		for (int i = 0; i < n; i++) {
 			for (int j = i + 1; j < n; j++) {
-				if(Math.random() < wifeProbability && wifeCounter<this.wifePlayers) {
-					isWife = true;
-					wifeCounter++;
-				}
-					
 				if (Math.random() < p1) {
+					if(wifeCounter<this.wifePlayers) {
+						isWife = true;
+						wifeCounter++;
+					}
 					VarTuple at = new VarTuple(i, j);
 					ConsTable ct = new ConsTable(typeOfGame,isWife);//Is the left one a wife
 					cons_tables.put(at, ct);
 				}
 			}
+			isWife = false;
 		}
 		
 		return new MASP(cons_tables, n,typeOfGame);

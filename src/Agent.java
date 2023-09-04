@@ -31,7 +31,6 @@ public class Agent implements Runnable {
 	@Override
 	public void run() {
 		
-		
 		Message m = new AssignmentMessage(id, assignment);
 		for (Entry<Integer, ConsTable> e: constraints.entrySet()) {
 			mailer.send(e.getKey(), m);
