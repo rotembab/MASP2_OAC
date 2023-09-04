@@ -27,6 +27,13 @@ public class Main {
 		}		
 
 		// create agents
+		
+		//TODO: CREATE A DATA TYPE FOR STORING THE AGENT'S ASSIGNMENT FROM LAST TURN (FIRST IS RANDOM).
+		
+		//TODO: MAKE THE AGENTS SPAWN EACH TURN WITH THE LAST TURNS ASSGINMENTS.
+		//IN THE FIRST TURN THEY WILL HAVE RANDOM VALUES.
+		//KEEP THE LOOP OF TURNS GOING AS LONG AS SOMEONE CHANGED THEIR CHOISE IN THIS TURN.
+		
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		for (int i = 0; i < n; i++) {
 			// use the csp to extract the private information of each agent
@@ -46,5 +53,7 @@ public class Main {
 			t.join();
 		}
 		
+		
+		//TODO: PRINT THE NUMBER OF TURNS AND THE TOTAL GAIN
 	}
 }
