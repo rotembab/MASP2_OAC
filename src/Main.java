@@ -63,8 +63,11 @@ public class Main {
 				}
 				
 			//TODO: GO THROUGH ALL AGENTS, UPDATE THE ASSIGNMENTS AND CHECK IF SOMETHING CHANGED
-				totalSum=agents.get(n-1).getSum(); //The last agent's sum which is the total.
-				isFinished = !(agents.get(n-1).getIsChanged()); //The last agent's is changed which is the collective is changed.
+			for (int i = 0; i < n; i++) {
+				assignments[i]=agents.get(i).getAssignment();//UPDATE ASSIGNMENTS
+			}
+			totalSum=agents.get(n-1).getSum(); //The last agent's sum which is the total.
+			isFinished = !(agents.get(n-1).getIsChanged()); //The last agent's is changed which is the collective is changed.
 			turns++;//update the number of turns
 		}
 
