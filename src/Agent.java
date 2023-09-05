@@ -11,6 +11,8 @@ public class Agent implements Runnable {
 	private HashMap<Integer, ConsTable> constraints;
 	private HashMap<Integer, Integer> assignments = new HashMap<Integer, Integer>();
 	private boolean gameSelected;
+	private int currentSum;
+	private boolean isChanged=false;
 	
 	/*
 	 * constructor parameters -
@@ -29,11 +31,17 @@ public class Agent implements Runnable {
 	public int getAssignment() {
 		return this.assignment;
 	}
+	public int getSum() {
+		return  this.currentSum;
+	}
+	public boolean getIsChanged() {
+		return this.isChanged;
+	}
 	
-	private int calcSumGain(int assign) {
+	private int calcSumGain(int assign) { //IS THIS GOOD FOR BEST RESPONSE ALGORITHM????
 		//The method will get an index and calculate from all the neighbors the gain it's receives.
 		//Return Summed gain from all neighbors.
-		int sum =0;
+		int funcSum =0;
 		
 		//Iterate through all assignments, and calculate the sum.
 		for (Entry<Integer, ConsTable> e: constraints.entrySet()) {
@@ -48,12 +56,12 @@ public class Agent implements Runnable {
 			}
 			TupleForGame result = e.getValue().check(a1, a2);
 			if(e.getKey() < id) {//the right one ==j
-				sum+=result.getGainRight();
+				funcSum+=result.getGainRight();
 			}else {//the left one == i
-				sum+=result.getGainLeft();
+				funcSum+=result.getGainLeft();
 			}
 		}
-		return sum;
+		return funcSum;
 		
 	}
 
@@ -85,19 +93,18 @@ public class Agent implements Runnable {
 		}
 		//CHECK AND CHOOSE YOUR OWN ASSIGNMENT FROM THE GREATER SUM OF GAINS.
 		
-		boolean isChanged=false;
-		//int success = 0;
-		int currentSum = calcSumGain(assignment);
+		this.currentSum= calcSumGain(assignment);
 		int otherSum = calcSumGain(assignment^1);//if assignment Xor 1 (toggle between 1 and 0)
 		if(otherSum >currentSum) {
 			assignment^=1;
-			isChanged=true;
+			this.isChanged=true;
+			this.currentSum=otherSum;
 		}
 
 		//System.out.println("id: " + id + ", assignment: " + assignment + ", successful constraint checks: " + success);
 		
 		if (id != agents - 1) {
-			ChecksMessage message = new ChecksMessage(currentSum); //Sends current sum
+			ChecksMessage message = new ChecksMessage(this.currentSum,this.isChanged); //Sends current sum
 			mailer.send(agents - 1, message);
 		}
 		else {
@@ -109,9 +116,11 @@ public class Agent implements Runnable {
 				}
 				count++;
 				currentSum += message.getChecks();//Sums up the sums from each agent
+				if(message.getIsChanged()||this.isChanged) {
+					isChanged=true;
+				}
 			}
 			
-			//System.out.println("total number of constraint checks: " + success);
 		}
 	}
 
