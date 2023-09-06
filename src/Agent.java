@@ -38,8 +38,8 @@ public class Agent implements Runnable {
 		return this.isChanged;
 	}
 	
-	private int calcSumGain(int assign) { //IS THIS GOOD FOR BEST RESPONSE ALGORITHM????
-		//The method will get an index and calculate from all the neighbors the gain it's receives.
+	private int calcSumGain(int assign) {
+		//This method will get an index and calculate from all the neighbors the gain it receives.
 		//Return Summed gain from all neighbors.
 		int funcSum =0;
 		
@@ -64,16 +64,20 @@ public class Agent implements Runnable {
 		return funcSum;
 		
 	}
-
-	@Override
-	public void run() {
-		//SEND INITIAL ASSIGNMENT
+	
+	private void sendAssignmentToNeighbors() {
 		Message m = new AssignmentMessage(id, assignment);
 		for (Entry<Integer, ConsTable> e: constraints.entrySet()) {
 			mailer.send(e.getKey(), m);
 		}
+	}
+
+	@Override
+	public void run() {
+		//Send the initial assignment
+		this.sendAssignmentToNeighbors();
 		
-		//SAVE EACH NEIGHBOR'S ASSIGNMENT
+		//Recieve incoming messages, when out of assignment messages, wait for your StartTurnMessage
 		while (assignments.size() < constraints.size()) {
 			AssignmentMessage message = (AssignmentMessage) mailer.readOne(id);
 			if (message == null) {
@@ -100,7 +104,9 @@ public class Agent implements Runnable {
 			this.isChanged=true;
 			this.currentSum=otherSum;
 		}
-
+		
+		//TODO:UPDATE EVERYONE WITH YOUR ASSIGNMENT.
+		
 		//System.out.println("id: " + id + ", assignment: " + assignment + ", successful constraint checks: " + success);
 		
 		if (id != agents - 1) {
