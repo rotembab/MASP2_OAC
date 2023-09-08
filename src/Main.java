@@ -10,14 +10,14 @@ public class Main {
 		int n = Integer.valueOf(args[0]).intValue();
 		boolean gameSelected = args[1].equals("PD");// True for PD and False for BoS
 		double p1 = Double.valueOf(args[2]).doubleValue();
-		int wifePlayers = 0;
+		double wifeChance = 0;
 		if(!gameSelected){ //if false then Bos.
-			wifePlayers = Integer.valueOf(args[3]).intValue();
+			wifeChance = Double.valueOf(args[3]).doubleValue();
 		}
 
 
 		// generate and print CSP
-		Generator gen = new Generator(n, gameSelected, p1, wifePlayers);
+		Generator gen = new Generator(n, gameSelected, p1, wifeChance);
 		MASP masp = gen.generateMASP();
 		masp.print();
 

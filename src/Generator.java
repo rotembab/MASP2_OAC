@@ -3,9 +3,9 @@ import java.util.HashMap;
 
 public class Generator {
 	
-	private int n, wifePlayers;
+	private int n;
 	private boolean typeOfGame;
-	private double p1;
+	private double p1,wifeChance;
 
 	/*
 	 * constructor parameters -
@@ -14,31 +14,32 @@ public class Generator {
 	 * typeOfGame, the type of the game that is played, true = PD, false = BoS
 	 * wifePlayers, number of agents to be assigned as wife
 	 */
-	public Generator(int n, boolean typeOfGame, double p1, int wives) {
+	public Generator(int n, boolean typeOfGame, double p1, double wives) {
 		this.n = n;
 		this.typeOfGame = typeOfGame;
 		this.p1 = p1;
-		this.wifePlayers=wives;
+		this.wifeChance=wives;
 	}
 	
 	// generate MASP
 	public MASP generateMASP() {
-		int wifeCounter=0;
-		boolean isWife = false;
 		HashMap<VarTuple, ConsTable> cons_tables = new HashMap<VarTuple, ConsTable>();
 		for (int i = 0; i < n; i++) {
+			boolean player1=false;//True if is a woman
+			boolean player2=false;//True if is a woman
+			if (Math.random() < wifeChance) {
+				player1 = true;
+			}
 			for (int j = i + 1; j < n; j++) {
-				if(wifeCounter<this.wifePlayers) {
-					isWife = true;
-					wifeCounter++;
+				if (Math.random() < wifeChance) {
+					player2 = true;
 				}
 				if (Math.random() < p1) {
 					VarTuple at = new VarTuple(i, j);
-					ConsTable ct = new ConsTable(typeOfGame,isWife);//Is the left one a wife
+					ConsTable ct = new ConsTable(typeOfGame,player1,player2);//Is the left one a wife
 					cons_tables.put(at, ct);
 				}
 			}
-			isWife = false;
 		}
 		
 		return new MASP(cons_tables, n,typeOfGame);
