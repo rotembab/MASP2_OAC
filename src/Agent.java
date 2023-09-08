@@ -88,14 +88,21 @@ public class Agent implements Runnable {
 		}
 		
 		
-		
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		
+//		try {
+//			Thread.sleep(100);
+//		} catch (InterruptedException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		//CHECK AND CHOOSE YOUR OWN ASSIGNMENT FROM THE GREATER SUM OF GAINS.
+		TurnMessage message=null;
+		do {
+			 message = (TurnMessage) mailer.readOne(id);
+			if (message == null) {
+				continue;
+		}}
+		while(message==null);
 		
 		this.currentSum= calcSumGain(assignment);
 		int otherSum = calcSumGain(assignment^1);//if assignment Xor 1 (toggle between 1 and 0)
@@ -105,29 +112,26 @@ public class Agent implements Runnable {
 			this.currentSum=otherSum;
 		}
 		
-		//TODO:UPDATE EVERYONE WITH YOUR ASSIGNMENT.
-		
-		//System.out.println("id: " + id + ", assignment: " + assignment + ", successful constraint checks: " + success);
 		
 		if (id != agents - 1) {
-			ChecksMessage message = new ChecksMessage(this.currentSum,this.isChanged); //Sends current sum
-			mailer.send(agents - 1, message);
+			ChecksMessage messageCheck = new ChecksMessage(this.currentSum,this.isChanged); //Sends current sum
+			mailer.send(agents - 1, messageCheck);
 		}
 		else {
 			int count = 0;
 			while (count < agents - 1) {
-				ChecksMessage message = (ChecksMessage) mailer.readOne(id);
-				if (message == null) {
+				ChecksMessage messageCheck = (ChecksMessage) mailer.readOne(id);
+				if (messageCheck == null) {
 					continue;
 				}
 				count++;
-				currentSum += message.getChecks();//Sums up the sums from each agent
-				if(message.getIsChanged()||this.isChanged) {
+				currentSum += messageCheck.getGain();//Sums up the sums from each agent
+				if(messageCheck.getIsChanged()||this.isChanged) {
 					isChanged=true;
 				}
 			}
 			
 		}
-	}
+		}
 
 }

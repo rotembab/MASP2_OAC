@@ -1,16 +1,16 @@
 
 public class ChecksMessage implements Message {
 
-	private int checks;
+	private int gain;
 	private boolean isChanged;
 	
-	public ChecksMessage(int checks,boolean isChanged) {
-		this.checks = checks;
+	public ChecksMessage(int gain,boolean isChanged) {
+		this.gain = gain;
 		this.isChanged = isChanged;
 	}
 
-	public int getChecks() {
-		return checks;
+	public int getGain() {
+		return gain;
 	}
 	
 	public boolean getIsChanged() {

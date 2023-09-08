@@ -59,6 +59,12 @@ public class Main {
 				for (Thread t : threads) {
 					t.start();
 				}
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				//TODO: SEND AGENT 0 THE FIRST MESSAGE TO BEGIN
 				mailer.send(0, new TurnMessage());
 				
