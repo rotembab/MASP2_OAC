@@ -37,28 +37,30 @@ public class Main {
 			i = r.nextInt(2); //Either 0 or 1 - Defect Or Cooperate - Theater or Soccer.
 		}
 		
-		int turns = 1;//The first round was to set every agent with a randomized strategy.
+	
 		boolean isFinished = false;
 		int totalSum=0;
+		ArrayList<Agent> agents = new ArrayList<Agent>();
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+		for (int i = 0; i < n; i++) {
+			HashMap<Integer, ConsTable> private_information = masp.tablesOf(i);
+			Agent a = new Agent(i, mailer, private_information, n, gameSelected,assignments[i]);
+			agents.add(a);
+			Thread t = new Thread(a);
+			threads.add(t);
+		}
+		int turns = 1;//The first round was to set every agent with a randomized strategy.
 		//TODO: MAKE THE AGENTS SPAWN EACH TURN WITH THE LAST TURN'S ASSGINMENTS.
 		//IN THE FIRST TURN THEY WILL HAVE RANDOM VALUES.
 		//KEEP THE LOOP OF TURNS GOING AS LONG AS SOMEONE CHANGED THEIR CHOISE IN THIS TURN.
 		while(!isFinished) {
 			turns++;//update the number of turns, the start of round 2 and more
-			ArrayList<Agent> agents = new ArrayList<Agent>();
-			ArrayList<Thread> threads = new ArrayList<Thread>();
-			for (int i = 0; i < n; i++) {
-				HashMap<Integer, ConsTable> private_information = masp.tablesOf(i);
-				Agent a = new Agent(i, mailer, private_information, n, gameSelected,assignments[i]);
-				agents.add(a);
-				Thread t = new Thread(a);
-				threads.add(t);
-			}
 				// run agents as threads
 				for (Thread t : threads) {
 					t.start();
 				}
 				//TODO: SEND AGENT 0 THE FIRST MESSAGE TO BEGIN
+				mailer.send(0, new TurnMessage());
 				
 				// wait for all agents to terminate
 				for (Thread t : threads) {
