@@ -77,7 +77,7 @@ public class Agent implements Runnable {
 		//Send the initial assignment
 		this.sendAssignmentToNeighbors();
 		
-		//Recieve incoming messages, when out of assignment messages, wait for your StartTurnMessage
+		//READ INCOMING ASSIGNMENTS
 		while (assignments.size() < constraints.size()) {
 			AssignmentMessage message = (AssignmentMessage) mailer.readOne(id);
 			if (message == null) {
@@ -88,22 +88,31 @@ public class Agent implements Runnable {
 		}
 		
 		
-//		
-//		try {
-//			Thread.sleep(100);
-//		} catch (InterruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//CHECK AND CHOOSE YOUR OWN ASSIGNMENT FROM THE GREATER SUM OF GAINS.
+
+		//Enter wait to turn mode
 		TurnMessage message=null;
 		do {
-			 message = (TurnMessage) mailer.readOne(id);
-			if (message == null) {
-				continue;
-		}}
+			Message m1 =  mailer.readOne(id);
+			if(m1 instanceof TurnMessage){
+				message = (TurnMessage) m1;
+			}else{
+				if(m1 instanceof ChecksMessage){
+					mailer.send(id,m1);
+				}
+				message=null;
+			}
+
+		}
 		while(message==null);
-		
+
 		this.currentSum= calcSumGain(assignment);
 		int otherSum = calcSumGain(assignment^1);//if assignment Xor 1 (toggle between 1 and 0)
 		if(otherSum >currentSum) {
@@ -112,10 +121,11 @@ public class Agent implements Runnable {
 			this.currentSum=otherSum;
 		}
 		
-		
 		if (id != agents - 1) {
 			ChecksMessage messageCheck = new ChecksMessage(this.currentSum,this.isChanged); //Sends current sum
 			mailer.send(agents - 1, messageCheck);
+			mailer.send(id+1, new TurnMessage());
+
 		}
 		else {
 			int count = 0;
@@ -129,8 +139,9 @@ public class Agent implements Runnable {
 				if(messageCheck.getIsChanged()||this.isChanged) {
 					isChanged=true;
 				}
+
 			}
-			
+
 		}
 		}
 
