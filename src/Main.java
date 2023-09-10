@@ -21,7 +21,7 @@ public class Main {
 		// generate and print CSP
 		Generator gen = new Generator(n, gameSelected, p1, wifeChance);
 		MASP masp = gen.generateMASP();
-		//masp.print();
+		masp.print();
 
 		// initialize mailer
 		Mailer mailer = new Mailer();
@@ -66,7 +66,7 @@ public class Main {
 
 				//wait for agents to send their initial value
 				try {
-					Thread.sleep(150);
+					Thread.sleep(200);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -87,7 +87,7 @@ public class Main {
 
 
 
-		System.out.println("End of round "+ iteration+" total SW is " +(totalSum/(n)));
+//		System.out.println("End of round "+ iteration+" total SW is " +(totalSum/(n)));
 		totalTurns+=turns;
 	}
 		System.out.println("Num_Iterations - "+ (totalTurns/100)+ "\n SW - "+ ((totalSum/100)/n));
