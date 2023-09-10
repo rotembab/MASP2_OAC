@@ -89,7 +89,7 @@ public class Main {
 
 
 
-//		System.out.println("End of round "+ iteration+" total SW is " +(totalSum/(n)));
+		//System.out.println("End of game "+ (iteration+1)+" total SW is " +(totalSum/(n)));
 		totalTurns+=turns;
 	}
 		System.out.println("Num_Iterations - "+ (totalTurns/ITERATIONS)+ "\n SW - "+ ((totalSum/ITERATIONS)/n));
