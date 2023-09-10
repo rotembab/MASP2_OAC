@@ -7,6 +7,8 @@
     <list default="true" id="0e8a6885-997e-4217-8f53-984b6a51cb07" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ConsTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConsTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Generator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +61,7 @@
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Assingment2MASP_OAC" />
-      <option name="PROGRAM_PARAMETERS" value="6 PD 0.3" />
+      <option name="PROGRAM_PARAMETERS" value="100 PD 0.2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -79,7 +81,8 @@
       <workItem from="1693545600108" duration="1423000" />
       <workItem from="1694158847014" duration="1400000" />
       <workItem from="1694160299078" duration="1741000" />
-      <workItem from="1694164740754" duration="2264000" />
+      <workItem from="1694164740754" duration="3906000" />
+      <workItem from="1694342010843" duration="5576000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit - Project set">
       <option name="closed" value="true" />
@@ -98,5 +101,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit - Project set" />
     <option name="LAST_COMMIT_MESSAGE" value="Initial Commit - Project set" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="assignments[4]" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

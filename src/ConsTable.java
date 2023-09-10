@@ -40,13 +40,13 @@ public class ConsTable {
 				BoSClassic[1][1]= new TupleForGame(3,1);
 			}
 			table = this.BoSClassic;
-		}else if(player1=player2=true) {//woman vs Woman TODO:???
+		}else if(player1=player2=true) {//woman vs Woman
 			BoSWvW[0][0]= new TupleForGame(3,3);
 			BoSWvW[0][1]= new TupleForGame(3,1);
 			BoSWvW[1][0]= new TupleForGame(1,3);
 			BoSWvW[1][1]= new TupleForGame(1,1);
 			table=this.BoSWvW;
-		}else {//Man vs Man TODO:???
+		}else {//Man vs Man
 			BoSWvW[0][0]= new TupleForGame(1,1);
 			BoSWvW[0][1]= new TupleForGame(1,3);
 			BoSWvW[1][0]= new TupleForGame(3,1);

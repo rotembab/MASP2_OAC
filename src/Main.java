@@ -14,12 +14,14 @@ public class Main {
 		if(!gameSelected){ //if false then Bos.
 			wifeChance = Double.valueOf(args[3]).doubleValue();
 		}
-
+		double totalSum=0;
+		double totalTurns=0;
+		for (int iteration =0;iteration<100;iteration++){
 
 		// generate and print CSP
 		Generator gen = new Generator(n, gameSelected, p1, wifeChance);
 		MASP masp = gen.generateMASP();
-		masp.print();
+		//masp.print();
 
 		// initialize mailer
 		Mailer mailer = new Mailer();
@@ -33,15 +35,16 @@ public class Main {
 		Random r = new Random();
 		
 		//First round
-		for(int i : assignments) {
-			i = r.nextInt(2); //Either 0 or 1 - Defect Or Cooperate - Theater or Soccer.
+		for(int i = 0; i < assignments.length; i++) {
+			assignments[i] = r.nextInt(2); // Either 0 or 1 - Defect Or Cooperate - Theater or Soccer.
 		}
 		
 	
 		boolean isFinished = false;
-		int totalSum=0;
+
 
 		int turns = 1;//The first round was to set every agent with a randomized strategy.
+
 		//TODO: MAKE THE AGENTS SPAWN EACH TURN WITH THE LAST TURN'S ASSGINMENTS.
 		//IN THE FIRST TURN THEY WILL HAVE RANDOM VALUES.
 		//KEEP THE LOOP OF TURNS GOING AS LONG AS SOMEONE CHANGED THEIR CHOISE IN THIS TURN.
@@ -60,7 +63,14 @@ public class Main {
 				for (Thread t : threads) {
 					t.start();
 				}
-				//TODO: SEND AGENT 0 THE FIRST MESSAGE TO BEGIN
+
+				//wait for agents to send their initial value
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				mailer.send(0, new TurnMessage());
 				
 				// wait for all agents to terminate
@@ -71,14 +81,17 @@ public class Main {
 			for (int i = 0; i < n; i++) {
 				assignments[i]=agents.get(i).getAssignment();//UPDATE ASSIGNMENTS
 			}
-			totalSum=agents.get(n-1).getSum(); //The last agent's sum which is the total.
+			totalSum+=agents.get(n-1).getSum(); //The last agent's sum which is the total.
 			isFinished = !(agents.get(n-1).getIsChanged()); //The last agent's is changed which is the collective is changed.
 		}
 
-		
-		System.out.println("Num_Iterations - "+ turns+ "\n SW - "+ totalSum);
 
-		
-		//TODO: PRINT THE NUMBER OF TURNS AND THE TOTAL GAIN
+
+
+		System.out.println("End of round "+ iteration+" total SW is " +(totalSum/(n)));
+		totalTurns+=turns;
 	}
+		System.out.println("Num_Iterations - "+ (totalTurns/100)+ "\n SW - "+ ((totalSum/100)/n));
+	}
+
 }

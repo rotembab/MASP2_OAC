@@ -76,25 +76,27 @@ public class Agent implements Runnable {
 	public void run() {
 		//Send the initial assignment
 		this.sendAssignmentToNeighbors();
-		
+
+
+
 		//READ INCOMING ASSIGNMENTS
 		while (assignments.size() < constraints.size()) {
 			AssignmentMessage message = (AssignmentMessage) mailer.readOne(id);
 			if (message == null) {
 				continue;
 			}
-			
+
 			assignments.put(message.getSender(), message.getAssignment());
 		}
-		
-		
-
 		try {
-			Thread.sleep(100);
+			Thread.sleep(5);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+
+
 		//CHECK AND CHOOSE YOUR OWN ASSIGNMENT FROM THE GREATER SUM OF GAINS.
 
 		//Enter wait to turn mode
@@ -113,9 +115,11 @@ public class Agent implements Runnable {
 		}
 		while(message==null);
 
+		this.isChanged=false;
 		this.currentSum= calcSumGain(assignment);
 		int otherSum = calcSumGain(assignment^1);//if assignment Xor 1 (toggle between 1 and 0)
 		if(otherSum >currentSum) {
+//			System.out.println(id+"I'm changing my choice");
 			assignment^=1;
 			this.isChanged=true;
 			this.currentSum=otherSum;
