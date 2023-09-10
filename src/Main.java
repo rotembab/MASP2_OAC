@@ -7,6 +7,7 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 
 		// extract parameters
+
 		int n = Integer.valueOf(args[0]).intValue();
 		boolean gameSelected = args[1].equals("PD");// True for PD and False for BoS
 		double p1 = Double.valueOf(args[2]).doubleValue();
@@ -16,7 +17,8 @@ public class Main {
 		}
 		double totalSum=0;
 		double totalTurns=0;
-		for (int iteration =0;iteration<100;iteration++){
+		int ITERATIONS = 100;
+		for (int iteration =0;iteration<ITERATIONS;iteration++){
 
 		// generate and print CSP
 		Generator gen = new Generator(n, gameSelected, p1, wifeChance);
@@ -90,7 +92,7 @@ public class Main {
 //		System.out.println("End of round "+ iteration+" total SW is " +(totalSum/(n)));
 		totalTurns+=turns;
 	}
-		System.out.println("Num_Iterations - "+ (totalTurns/100)+ "\n SW - "+ ((totalSum/100)/n));
+		System.out.println("Num_Iterations - "+ (totalTurns/ITERATIONS)+ "\n SW - "+ ((totalSum/ITERATIONS)/n));
 	}
 
 }
