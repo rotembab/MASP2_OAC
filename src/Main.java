@@ -21,7 +21,7 @@ public class Main {
 		// generate and print CSP
 		Generator gen = new Generator(n, gameSelected, p1, wifeChance);
 		MASP masp = gen.generateMASP();
-		masp.print();
+//		masp.print();
 
 		// initialize mailer
 		Mailer mailer = new Mailer();
@@ -66,7 +66,7 @@ public class Main {
 
 				//wait for agents to send their initial value
 				try {
-					Thread.sleep(200);
+					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
