@@ -43,13 +43,13 @@ public class Main {
 		boolean isFinished = false;
 
 
-		int turns = 1;//The first round was to set every agent with a randomized strategy.
+		int turns = 0;//The first round was to set every agent with a randomized strategy.
 
 		//TODO: MAKE THE AGENTS SPAWN EACH TURN WITH THE LAST TURN'S ASSGINMENTS.
 		//IN THE FIRST TURN THEY WILL HAVE RANDOM VALUES.
 		//KEEP THE LOOP OF TURNS GOING AS LONG AS SOMEONE CHANGED THEIR CHOISE IN THIS TURN.
 		while(!isFinished) {
-			turns++;//update the number of turns, the start of round 2 and more
+			turns++;//update the number of turns, the start of round 1 and more
 			ArrayList<Agent> agents = new ArrayList<Agent>();
 			ArrayList<Thread> threads = new ArrayList<Thread>();
 			for (int i = 0; i < n; i++) {
@@ -66,7 +66,7 @@ public class Main {
 
 				//wait for agents to send their initial value
 				try {
-					Thread.sleep(100);
+					Thread.sleep(150);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -77,7 +77,6 @@ public class Main {
 				for (Thread t : threads) {
 					t.join();
 				}
-			//TODO: GO THROUGH ALL AGENTS, UPDATE THE ASSIGNMENTS AND CHECK IF SOMETHING CHANGED
 			for (int i = 0; i < n; i++) {
 				assignments[i]=agents.get(i).getAssignment();//UPDATE ASSIGNMENTS
 			}

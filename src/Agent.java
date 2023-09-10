@@ -89,7 +89,7 @@ public class Agent implements Runnable {
 			assignments.put(message.getSender(), message.getAssignment());
 		}
 		try {
-			Thread.sleep(5);
+			Thread.sleep(1);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
